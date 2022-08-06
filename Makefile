@@ -2,7 +2,7 @@ LIBFT = ./Libft/libft.a
 
 NAME = libftprintf.a
 
-SOURCES = ft_printf.c
+SOURCES = ft_printf.c ft_printhex.c
 
 OBJECTS = $(SOURCES:%.c=%.o)
 

@@ -1,5 +1,6 @@
 
 #include "ft_printf.h"
+#include <limits.h>
 #include <stdio.h>
 
 int main()
@@ -7,10 +8,10 @@ int main()
 	// char	i = 'Y';
 	// char	m = 'S';
 	//int		k = -1;
-	int		c;
+	//int		c;
 	int		c1;
 	//char *p = "this is a pointer";
-	// char	str[] = "a string";
+	//char	str[] = NULL;
 
 	// k = 180789565;
 	// i = 'Y';
@@ -21,10 +22,10 @@ int main()
 	// ft_printf("%u\n", -20);
 	// printf ("original is %d, mine is %d\n", c, c1);
 
-	c = printf("%X\n", 878778);
-	c1 = ft_printf("%X\n", 878778);
-	printf ("original is %d, mine is %d\n", c, c1);
-
+	//c = printf("%x\n", LONG_MAX);
+	c1 = ft_printf("%x\n", LONG_MAX);
+	//printf ("original is %d, mine is %d\n", c, c1);
+	//printf ("original is %d\n",c);
 	return(0);
 }
 //gcc -Wall -Wextra -Werror mainpf.c -L. libftprintf.a  -o myp && ./myp

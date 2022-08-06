@@ -6,11 +6,35 @@
 /*   By: ymohamed <ymohamed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:25:42 by ymohamed          #+#    #+#             */
-/*   Updated: 2022/08/06 14:25:59 by ymohamed         ###   ########.fr       */
+/*   Updated: 2022/08/06 22:31:21 by ymohamed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	getdigits(int num)
+{
+	int	d;
+
+	d = 0;
+	if (num == -2147483648)
+		return (10);
+	if (num < 0)
+	{
+		num *= -1;
+		return (getdigits(num) + 1);
+	}
+	if (num >= 0 && num < 10)
+		return (0);
+	if (num == 10)
+		return (1);
+	while (num != 0)
+	{
+		num /= 10;
+		d++;
+	}
+	return (d - 1);
+}
 
 static void	ft_putunsinint_fd(unsigned int u, int fd, int *n)
 {
@@ -21,16 +45,6 @@ static void	ft_putunsinint_fd(unsigned int u, int fd, int *n)
 	}
 	u = (u % 10) + 48;
 	write(fd, &u, 1);
-}
-
-static void	ft_printhex(size_t val, char *base, int *n)
-{
-	if (val > 15)
-	{
-		*n = *n + 1;
-		ft_printhex(val / 16, base, n);
-	}	
-	write(1, &base[val % 16], 1);
 }
 
 static int	on_action2(int *i, char *argdefiner, va_list argu)
@@ -52,7 +66,7 @@ static int	on_action2(int *i, char *argdefiner, va_list argu)
 	{
 		ft_putstr_fd("0x", 1);
 		n = 2;
-		ft_printhex((t_ul)va_arg(argu, void *), "0123456789abcdef", &n);
+		ft_printhexp((t_ul)va_arg(argu, void *), "0123456789abcdef", &n);
 	}
 	return (n);
 }
@@ -67,6 +81,11 @@ static int	on_action(int *i, char *argdefiner, va_list argu)
 	if (argdefiner[*i] == 's')
 	{	
 		p = (char *)va_arg(argu, int *);
+		if (!p)
+		{
+			ft_putstr_fd("(null)", 1);
+			return (5);
+		}
 		ft_putstr_fd(p, 1);
 		n = ft_strlen(p) - 1;
 	}
@@ -74,10 +93,7 @@ static int	on_action(int *i, char *argdefiner, va_list argu)
 	{
 		m = va_arg(argu, int);
 		ft_putnbr_fd(m, 1);
-		if (m != 0)
-			n = -1;
-		while (m != 0 && ++n)
-				m /= 10;
+		n = getdigits(m);
 	}
 	else
 		n = on_action2(i, argdefiner, argu);

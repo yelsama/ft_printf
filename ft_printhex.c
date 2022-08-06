@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_printhex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymohamed <ymohamed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/06 11:40:32 by ymohamed          #+#    #+#             */
-/*   Updated: 2022/08/06 22:33:04 by ymohamed         ###   ########.fr       */
+/*   Created: 2022/08/06 21:58:05 by ymohamed          #+#    #+#             */
+/*   Updated: 2022/08/06 22:32:18 by ymohamed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include "./Libft/libft.h"
-# include <stdarg.h>
-# include <unistd.h>
+void	ft_printhexp(size_t val, char *base, int *n)
+{
+	if (val > 15)
+	{
+		*n = *n + 1;
+		ft_printhex(val / 16, base, n);
+	}	
+	write(1, &base[val % 16], 1);
+}
 
-typedef unsigned long	t_ul;
-int		ft_printf(const char *s, ...);
-void	ft_printhexp(size_t val, char *base, int *n);
-void	ft_printhex(long int val, char *base, int *n);
-
-#endif
+void	ft_printhex(long int val, char *base, int *n)
+{
+	if (val > 15)
+	{
+		*n = *n + 1;
+		ft_printhex(val / 16, base, n);
+	}	
+	write(1, &base[val % 16], 1);
+}
