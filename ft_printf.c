@@ -6,7 +6,7 @@
 /*   By: ymohamed <ymohamed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:25:42 by ymohamed          #+#    #+#             */
-/*   Updated: 2022/08/06 22:31:21 by ymohamed         ###   ########.fr       */
+/*   Updated: 2022/08/08 11:31:18 by ymohamed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ static int	on_action2(int *i, char *argdefiner, va_list argu)
 	else if (argdefiner[*i] == 'u')
 		ft_putunsinint_fd(va_arg(argu, unsigned int), 1, &n);
 	else if (argdefiner[*i] == 'x')
-		ft_printhex(va_arg(argu, long int), "0123456789abcdef", &n);
+		ft_printhex(va_arg(argu, int), "0123456789abcdef", &n);
 	else if (argdefiner[*i] == 'X')
-		ft_printhex(va_arg(argu, long int), "0123456789ABCDEF", &n);
+		ft_printhex(va_arg(argu, int), "0123456789ABCDEF", &n);
 	else if (argdefiner[*i] == '%')
 		write(1, "%", 1);
 	else if (argdefiner[*i] == 'p')
