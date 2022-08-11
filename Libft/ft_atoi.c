@@ -30,11 +30,10 @@ int	ft_atoi(const char *str)
 	while (ptr[i] == ' ' || (ptr[i] > 8 && ptr[i] < 14))
 		i++;
 	if (ptr[i] == '-' || ptr[i] == '+')
-	{
-		if (ptr[i] == '-')
+		if (ptr[i++] == '-')
 			sn = sn * -1;
+	while (ptr[i] == '0')
 		i++;
-	}
 	calcu(&nb, &md, &i, ptr);
 	if (md > 19 && sn < 0)
 		return (0);
